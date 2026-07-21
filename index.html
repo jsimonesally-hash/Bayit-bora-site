@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bayit Bora</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --ink: #111110;
+      --cream: #f4f0e7;
+      --cream-2: #e8e0d2;
+      --gold: #c79a68;
+      --muted: #a99f91;
+      --line: rgba(244,240,231,.18);
+      --black: #121212;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    html, body { margin: 0; width: 100%; background: var(--ink); color: var(--cream); }
+    body { font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+    .page { width: 100%; background: #111110; }
+    .grain:before {
+      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 60;
+      opacity: .06;
+      background-image: url("https://www.transparenttextures.com/patterns/asfalt-light.png");
+      mix-blend-mode: screen;
+    }
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 34px;
+      background: linear-gradient(180deg,rgba(17,17,16,.8),rgba(17,17,16,.2));
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(244,240,231,.12);
+    }
+    .brand { display: flex; align-items: center; }
+    .brand-name { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 700; letter-spacing: -.04em; color: var(--cream); text-transform: lowercase; }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a {
+      color: var(--cream); text-decoration: none; font-family: 'Space Mono', monospace;
+      font-size: 10px; letter-spacing: .18em; text-transform: uppercase; opacity: .78;
+      transition: opacity .25s ease, color .25s ease;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--gold); }
+    .hero {
+      min-height: 100vh;
+      position: relative; display: flex; align-items: flex-end;
+      padding: 140px 6vw 8vw; overflow: hidden;
+    }
+    .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(.48) saturate(.9); }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(90deg,rgba(8,8,8,.8) 0%,rgba(8,8,8,.28) 55%,rgba(8,8,8,.45) 100%), linear-gradient(180deg,rgba(0,0,0,.3),rgba(0,0,0,.45)); }
+    .hero-content { position: relative; z-index: 2; max-width: 840px; }
+    .eyebrow { font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: .2em; font-size: 11px; color: var(--gold); margin-bottom: 20px; }
+    .hero h1, .section-title, .manifesto-title, .press-title {
+      font-family: 'Fraunces', serif; font-weight: 600; letter-spacing: -.06em; margin: 0;
+    }
+    .hero h1 { font-size: clamp(48px, 7vw, 92px); line-height: .95; max-width: 1000px; }
+    .hero p { max-width: 560px; font-size: 18px; line-height: 1.7; color: #ddd4c7; margin: 26px 0 0; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 34px; }
+    .btn {
+      border: 1px solid rgba(244,240,231,.32); background: transparent; color: var(--cream);
+      padding: 14px 18px; font-family: 'Space Mono', monospace; text-transform: uppercase;
+      letter-spacing: .14em; font-size: 10px; display: inline-flex; align-items: center; gap: 10px;
+      text-decoration: none; cursor: pointer; transition: .25s ease;
+    }
+    .btn:hover { background: var(--cream); color: var(--ink); border-color: var(--cream); }
+    .btn.dark { background: var(--cream); color: var(--ink); border-color: var(--cream); }
+    .btn.dark:hover { background: transparent; color: var(--cream); }
+    .scroll-note {
+      position: absolute; right: 34px; bottom: 32px; z-index: 3;
+      writing-mode: vertical-rl; font-family: 'Space Mono', monospace; text-transform: uppercase;
+      letter-spacing: .18em; font-size: 9px; color: #b6ac9d;
+    }
+
+    .manifesto {
+      background: var(--cream); color: var(--ink);
+      padding: 120px 6vw 110px;
+    }
+    .manifesto-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 6vw; align-items: center; }
+    .manifesto-title { font-size: clamp(44px, 6vw, 80px); line-height: .95; }
+    .manifesto-copy { border-left: 1px solid rgba(17,17,16,.18); padding-left: 28px; }
+    .manifesto-copy p { font-size: 18px; line-height: 1.8; color: #514b43; margin: 0 0 24px; }
+    .manifesto-kicker { font-family: 'Space Mono', monospace; letter-spacing: .18em; text-transform: uppercase; font-size: 10px; color: #9d7448; margin-bottom: 18px; }
+
+    .speakeasy {
+      padding: 120px 6vw; background: #111110; color: var(--cream);
+    }
+    .section-head { display: flex; justify-content: space-between; gap: 24px; align-items: end; margin-bottom: 44px; }
+    .section-title { font-size: clamp(44px, 6vw, 80px); line-height: .95; max-width: 760px; }
+    .section-note { max-width: 360px; color: #b9afa1; line-height: 1.7; font-size: 15px; }
+
+    .mission { background: #efe9dd; color: #151514; padding: 120px 6vw; }
+    .mission-grid { display: flex; justify-content: center; align-items: center; text-align: center; padding: 0 10%; }
+    .mission-copy .eyebrow { color: #9d7448; }
+    .mission-copy h2 { font-family: 'Fraunces', serif; font-size: clamp(44px, 6vw, 80px); line-height: .95; letter-spacing: -.06em; margin: 0 auto 28px; }
+    .mission-copy p { font-size: 17px; line-height: 1.8; color: #4b463f; max-width: 620px; margin: 0 auto; }
+    .quote-line { margin-top: 34px; padding-top: 24px; border-top: 1px solid rgba(17,17,16,.16); font-family: 'Fraunces', serif; font-size: 24px; line-height: 1.2; color: #171716; }
+
+    .notes { background: #111110; padding: 120px 6vw; }
+    .notes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 44px; }
+    .note-card { border: 1px solid var(--line); background: #171716; color: inherit; text-align: left; padding: 0; cursor: pointer; transition: .28s ease; }
+    .note-card:hover { transform: translateY(-8px); border-color: rgba(199,154,104,.65); }
+    .note-img { width: 100%; height: 330px; object-fit: cover; display: block; filter: brightness(.76); }
+    .note-meta { padding: 22px; }
+    .note-kicker { font-family: 'Space Mono', monospace; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); font-size: 9px; margin-bottom: 14px; }
+    .note-title { font-family: 'Fraunces', serif; font-size: 28px; line-height: 1.05; letter-spacing: -.03em; margin: 0 0 12px; }
+    .note-copy { font-size: 13px; line-height: 1.65; color: #afa597; margin: 0; }
+
+    .shop { background: #171716; padding: 120px 6vw; }
+    .shop-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 38px; }
+    .shop-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .product-card { border: 1px solid rgba(244,240,231,.18); background: #121212; padding: 18px; cursor: pointer; color: inherit; text-align: left; transition: .25s ease; }
+    .product-card:hover { border-color: rgba(199,154,104,.6); transform: translateY(-6px); }
+    .product-img { width: 100%; height: 330px; object-fit: cover; display: block; }
+    .product-info { padding-top: 16px; display: flex; justify-content: space-between; gap: 18px; }
+    .product-title { font-family: 'Fraunces', serif; font-size: 22px; line-height: 1.1; margin: 0; }
+    .product-price { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--gold); }
+
+    .press { background: #0d0d0d; padding: 120px 6vw 90px; }
+    .press-grid { display: grid; grid-template-columns: .95fr 1.05fr; gap: 8vw; }
+    .press-title { font-size: clamp(44px, 6vw, 80px); line-height: .95; }
+    .press-list { padding-top: 10px; }
+    .press-item { border-top: 1px solid rgba(244,240,231,.2); padding: 24px 0 28px; }
+    .press-item:first-child { border-top: 0; padding-top: 0; }
+    .press-quote { font-size: 16px; line-height: 1.65; color: #c6bcae; margin: 0 0 14px; }
+    .press-source { font-family: 'Fraunces', serif; font-size: 22px; color: var(--cream); }
+
+    footer { padding: 26px 6vw; border-top: 1px solid rgba(244,240,231,.16); display: flex; justify-content: space-between; gap: 20px; background: #0d0d0d; }
+    .footer-left, .footer-right { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: #9f9587; }
+
+    .modal {
+      position: fixed; inset: 0; background: rgba(9,9,9,.82); backdrop-filter: blur(12px); z-index: 80;
+      display: none; align-items: center; justify-content: center; padding: 24px;
+    }
+    .modal.open { display: flex; }
+    .modal-card { width: min(920px,100%); background: #efe9dd; color: #161615; display: grid; grid-template-columns: 42% 58%; position: relative; }
+    .modal-card img { width: 100%; height: 100%; object-fit: cover; }
+    .modal-content { padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+    .modal-close { position: absolute; right: 14px; top: 14px; width: 40px; height: 40px; border: 1px solid rgba(0,0,0,.18); background: rgba(255,255,255,.3); cursor: pointer; display: grid; place-items: center; }
+    .modal-kicker { font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: .16em; font-size: 9px; color: #9d7448; margin-bottom: 12px; }
+    .modal-title { font-family: 'Fraunces', serif; font-size: 38px; line-height: .95; letter-spacing: -.04em; margin: 0 0 18px; }
+    .modal-copy { font-size: 15px; line-height: 1.75; color: #4b463e; margin: 0 0 22px; }
+
+    @media(max-width:900px){
+      .nav-links { display: none; }
+      .manifesto-grid, .press-grid { grid-template-columns: 1fr; }
+      .mission-grid { padding: 0 4vw; }
+      .notes-grid, .shop-grid { grid-template-columns: 1fr; }
+      .note-img, .product-img { height: 280px; }
+      .press-grid { gap: 40px; }
+    }
+    @media(max-width:640px){
+      .nav { padding: 18px 20px; }
+      .hero { padding: 120px 22px 70px; }
+      .hero h1 { font-size: 44px; }
+      .hero p { font-size: 16px; }
+      .manifesto, .speakeasy, .mission, .notes, .shop, .press { padding: 80px 22px; }
+      .manifesto-title, .section-title, .mission-copy h2, .press-title { font-size: 44px; }
+      .reveal-copy { padding: 28px; }
+      .reveal-title { font-size: 34px; }
+      .shop-head, .section-head { display: block; }
+      .section-note { margin-top: 18px; }
+      .modal-card { grid-template-columns: 1fr; max-height: 90%; overflow: auto; }
+      .modal-card img { height: 240px; }
+      footer { padding: 24px 22px; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page grain">
+    <header class="nav">
+      <div class="brand">
+        <div class="brand-name">bayit bora</div>
+      </div>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#manifesto">Manifesto</a> 
+        <a href="#speakeasy">The Atelier</a> 
+        <a href="#notes">Notes</a> 
+        <a href="#shop">First Mint</a>
+        <button id="walletConnectBtn" class="btn" style="padding: 6px 12px; margin-left: 14px; font-size: 9px; border-color: var(--gold); color: var(--gold);">
+          <span id="walletAddressText">Connect Signal</span>
+        </button>
+      </nav>
+    </header>
+    
+    <main>
+      <section class="hero">
+        <img class="hero-img" loading="lazy" src="https://images.pexels.com/photos/18499406/pexels-photo-18499406.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1280" alt="Stacked vintage televisions">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="eyebrow">Somewhere between signal and shelter</div>
+          <h1> A House for the Creator in You </h1>
+          <p> A place where the work ascends and transcends. </p>
+          <div class="hero-actions">
+            <a href="#speakeasy" class="btn dark">Find the door</a> 
+            <a href="#manifesto" class="btn">Read the signal</a>
+          </div>
+        </div>
+        <div class="scroll-note">Scroll to enter</div>
+      </section>
+      
+      <section id="manifesto" class="manifesto">
+        <div class="manifesto-grid">
+          <div>
+            <div class="manifesto-kicker">House Rule 001</div>
+            <h2 class="manifesto-title">A place where no artist is left behind.</h2>
+          </div>
+          <div class="manifesto-copy">
+            <p> Bayit Bora exists to make room for artists, buyers, and purveyors of art and intellect to gain more visibility, funding, and be financially viable before the complete switch to digital currency, unfinished work, unlikely meetings, and the kind of cultural exchange that rarely survives under bright light. We exist to: Never Exploit Artists, Optimize Buyer Benefits, and Internally Fund our projects with several art utilization models fit for the Web3. </p>
+          </div>
+        </div>
+      </section>
+
+
+      
+      <section id="notes" class="notes">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Filed after midnight</div>
+            <h2 class="section-title">House notes from the edge.</h2>
+          </div>
+          <p class="section-note">Fragments, dispatches, and field recordings from inside the house and just outside the frame.</p>
+        </div>
+        <div class="notes-grid">
+          <button class="note-card" data-note="one" type="button">
+            <img class="note-img" loading="lazy" src="https://images.pexels.com/photos/18499406/pexels-photo-18499406.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Retro television set">
+            <div class="note-meta">
+              <div class="note-kicker">Transmission 01</div>
+              <h3 class="note-title">The Night Has a Frequency</h3>
+              <p class="note-copy">On static, memory, and the strange generosity of staying up late.</p>
+            </div>
+          </button> 
+          <button class="note-card" data-note="two" type="button">
+            <img class="note-img" loading="lazy" src="https://images.pexels.com/photos/6551894/pexels-photo-6551894.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Artistic collage panel">
+            <div class="note-meta">
+              <div class="note-kicker">Field Note 02</div>
+              <h3 class="note-title">Cut / Copy / Gather</h3>
+              <p class="note-copy">A small essay on cities, scenes, and the practice of making room.</p>
+            </div>
+          </button> 
+          <button class="note-card" data-note="three" type="button">
+            <img class="note-img" loading="lazy" src="https://images.pexels.com/photos/8108327/pexels-photo-8108327.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Portrait with neon lights">
+            <div class="note-meta">
+              <div class="note-kicker">Afterimage 03</div>
+              <h3 class="note-title">Nobody Goes Home Early</h3>
+              <p class="note-copy">Portraits of the hour after the event is supposed to be over.</p>
+            </div>
+          </button>
+        </div>
+      </section>
+      
+           
+      <!-- IN THE MARKET (STRICTLY YOUR 2 SCANNED PIECES) -->
+      <section id="shop" class="shop">
+        <div class="shop-head">
+          <div>
+            <div class="eyebrow">The first mint</div>
+            <h2 class="section-title">In the Market</h2>
+          </div>
+          <p class="section-note">Real-time secondary market metrics and provenance for Genesis physical scans.</p>
+        </div>
+        <div class="shop-grid">
+          <button class="product-card" data-note="art1" type="button">
+            <img class="product-img" loading="lazy" src="IMG_1378.JPG" alt="This Electronic Brain #01">
+            <div class="product-info">
+              <div class="product-header">
+                <h3 class="product-title">This Electronic Brain #01</h3>
+                <span class="product-price">1.50 ETH</span>
+              </div>
+              <p class="note-copy">Mixed Media Collage Scan &amp; Digital Twin</p>
+              <div class="market-stats">
+                <span class="market-stat-label">Floor Price</span>
+                <span class="market-stat-val">1.50 ETH</span>
+                <span class="market-stat-label">Last Sale</span>
+                <span class="market-stat-val">1.35 ETH</span>
+                <span class="market-stat-label">Volume</span>
+                <span class="market-stat-val">18.4 ETH</span>
+                <span class="market-stat-label">24h Change</span>
+                <span class="market-stat-val stat-up">+12.5%</span>
+              </div>
+            </div>
+          </button>
+          
+          <button class="product-card" data-note="art2" type="button">
+            <img class="product-img" loading="lazy" src="IMG_1380.JPG" alt="Take It Easy #02">
+            <div class="product-info">
+              <div class="product-header">
+                <h3 class="product-title">Take It Easy #02</h3>
+                <span class="product-price">1.85 ETH</span>
+              </div>
+              <p class="note-copy">Mixed Media Collage Scan &amp; Digital Twin</p>
+              <div class="market-stats">
+                <span class="market-stat-label">Floor Price</span>
+                <span class="market-stat-val">1.85 ETH</span>
+                <span class="market-stat-label">Last Sale</span>
+                <span class="market-stat-val">1.70 ETH</span>
+                <span class="market-stat-label">Volume</span>
+                <span class="market-stat-val">22.1 ETH</span>
+                <span class="market-stat-label">24h Change</span>
+                <span class="market-stat-val stat-up">+8.3%</span>
+              </div>
+            </div>
+          </button>
+        </div>
+      </section>
+      
+      <section class="press">
+        <div class="press-grid">
+          <h2 class="press-title">Keep up with us across the static.</h2>
+          <div class="press-list">
+            <div class="press-item">
+              <p class="press-quote">“A hidden room with the confidence to stay hidden.”</p>
+              <div class="press-source"> Zora.co </div>
+            </div>
+            <div class="press-item">
+              <p class="press-quote">“Equal parts lounge, salon, and cultural weather system.”</p>
+              <div class="press-source"> Discord </div>
+            </div>
+            <div class="press-item">
+              <p class="press-quote">“The rare private space that still feels open to possibility.”</p>
+              <div class="press-source"> X </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    
+    <footer>
+      <div class="footer-left">Bayit Bora / New York / After Hours</div>
+      <div class="footer-right">House signal open</div>
+    </footer>
+  </div>
+
+  <div id="noteModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <article class="modal-card">
+      <button class="modal-close" id="modalCloseBtn" aria-label="Close modal">✕</button>
+      <img id="modalImage" src="" alt="Modal Detail Content View">
+      <div class="modal-content">
+        <div id="modalKicker" class="modal-kicker"></div>
+        <h3 id="modalTitle" class="modal-title"></h3>
+        <p id="modalCopy" class="modal-copy"></p>
+      </div>
+    </article>
+  </div>
+
+  <script>
+    const modal = document.getElementById('noteModal');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    const modalImg = document.getElementById('modalImage');
+    const modalKicker = document.getElementById('modalKicker');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalCopy = document.getElementById('modalCopy');
+
+    const cards = document.querySelectorAll('.note-card, .product-card');
+
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        const imgUrl = card.querySelector('img').src;
+        const imgAlt = card.querySelector('img').alt;
+        const kicker = card.querySelector('.note-kicker, .product-price')?.textContent || '';
+        const title = card.querySelector('.note-title, .product-title')?.textContent || '';
+        const copy = card.querySelector('.note-copy')?.textContent || 'Exclusive item from House Bayit Bora.';
+
+        modalImg.src = imgUrl;
+        modalImg.alt = imgAlt;
+        modalKicker.textContent = kicker;
+        modalTitle.textContent = title;
+        modalCopy.textContent = copy;
+
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+      });
+    });
+
+    const hotspotTable = document.getElementById('hotspotTable');
+    const hotspotBookshelf = document.getElementById('hotspotBookshelf');
+    const hotspotBarCart = document.getElementById('hotspotBarCart');
+    const hotspotArt = document.getElementById('hotspotArt');
+    const hotspotAtelierPortal = document.getElementById('hotspotAtelierPortal');
+
+    if (hotspotTable) {
+      hotspotTable.addEventListener('click', () => {
+        modalImg.src = "https://images.pexels.com/photos/6551894/pexels-photo-6551894.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800";
+        modalImg.alt = "Magazines on the circular wooden coffee table";
+        modalKicker.textContent = "Utility / Zine Access";
+        modalTitle.textContent = "Coffee Table Catalogues";
+        modalCopy.textContent = "A decentralized ledger of independent zines, essays, and visual art. Connect your wallet to verify token ownership or mint a fresh copy.";
+        
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+      });
+    }
+
+    if (hotspotBookshelf) {
+      hotspotBookshelf.addEventListener('click', () => {
+        modalImg.src = "https://images.pexels.com/photos/1389429/pexels-photo-1389429.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800";
+        modalImg.alt = "Vinyl stack and bookshelf archive";
+        modalKicker.textContent = "Sound &amp; Print / Vinyl Stack";
+        modalTitle.textContent = "The Listening Corner";
+        modalCopy.textContent = "A curated selection of vinyl pressings, sonic dispatches, and press archives preserved by the Bayit Bora DAO.";
+        
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+      });
+    }
+
+    if (hotspotBarCart) {
+      hotspotBarCart.addEventListener('click', () => {
+        modalImg.src = "https://images.pexels.com/photos/5947019/pexels-photo-5947019.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800";
+        modalImg.alt = "Apothecary glassware and herbal infusions";
+        modalKicker.textContent = "Hospitality / Botanical Elixirs";
+        modalTitle.textContent = "The House Apothecary";
+        modalCopy.textContent = "Herbal formulations, botanical mocktails, and seasonal fruit tonic recipes prepared for late-night salon sessions.";
+        
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+      });
+    }
+
+    if (hotspotArt) {
+      hotspotArt.addEventListener('click', () => {
+        modalImg.src = "https://images.pexels.com/photos/8108327/pexels-photo-8108327.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800";
+        modalImg.alt = "Gold Wall Sculptures";
+        modalKicker.textContent = "Exhibition / Wall Sculptures";
+        modalTitle.textContent = "Sculptural Gallery Wall";
+        modalCopy.textContent = "Featured rotation of physical and digital 3D wall art. Token holders can submit custom artwork or space renders for community placement.";
+        
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+      });
+    }
+
+    // Portal Click-through to XR Gallery
+    if (hotspotAtelierPortal) {
+      hotspotAtelierPortal.addEventListener('click', () => {
+        modalImg.src = "https://images.pexels.com/photos/6782342/pexels-photo-6782342.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800";
+        modalImg.alt = "XR Atelier Gateway";
+        modalKicker.textContent = "XR Experience / Spatial Gallery";
+        modalTitle.textContent = "Entering The XR Atelier...";
+        modalCopy.textContent = "Connecting to the 360 interactive environment. Verify token access to experience the full 3D spatial exhibition.";
+        
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+      });
+    }
+
+    // Handle Token Holder Custom Image Upload
+    const roomUploadInput = document.getElementById('roomUpload');
+    const atelierSpaceImg = document.getElementById('atelierSpaceImg');
+
+    if (roomUploadInput) {
+      roomUploadInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            atelierSpaceImg.src = event.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    }
+
+    if(modalCloseBtn) {
+      modalCloseBtn.addEventListener('click', () => {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+      });
+    }
+
+    if(modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.classList.remove('open');
+          modal.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }
+  </script>
+</body>
+</html>
