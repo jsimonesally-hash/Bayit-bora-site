@@ -211,6 +211,28 @@
           </div>
           <div class="manifesto-copy">
             <p> Bayit Bora exists to make room for artists, buyers, and purveyors of art and intellect to gain more visibility, funding, and be financially viable before the complete switch to digital currency, unfinished work, unlikely meetings, and the kind of cultural exchange that rarely survives under bright light. We exist to: Never Exploit Artists, Optimize Buyer Benefits, and Internally Fund our projects with several art utilization models fit for the Web3. </p>
+const words = ["artists", "buyers", "curators", "purveyors", "investors", "critics", "haters", "lovers"];
+let currentIndex = 0;
+
+const reel = document.getElementById("slotReel");
+
+function spinSlot() {
+  currentIndex = (currentIndex + 1) % words.length;
+  
+  // Quick blur effect during turn
+  reel.style.filter = "blur(2px)";
+  reel.style.transform = `translateY(-${currentIndex * 2.6}rem)`;
+  
+  setTimeout(() => {
+    reel.style.filter = "blur(0px)";
+  }, 250);
+}
+
+// Inject all words into the reel DOM on load
+reel.innerHTML = words.map(word => `<span class="slot-word">${word}</span>`).join('');
+
+// Spin every 2 seconds
+setInterval(spinSlot, 2000);
           </div>
         </div>
       </section>
