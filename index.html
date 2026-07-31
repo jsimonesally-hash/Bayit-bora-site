@@ -195,64 +195,22 @@
     </div>
     <div class="manifesto-copy">
       <p>
+        
         Bayit Bora exists to make room for 
-        <!-- Slot Reel Container -->
-        <span class="slot-container">
-          <span id="slotReel" class="slot-reel"></span>
-        </span>
-        art and intellect to gain more visibility, funding, and be financially viable before the complete switch to digital currency...
+        art and intellect to become self-supportive 
+        without censorship, alogrithmic bias, art-world bias
+        or financial third-parties infiltratin' 'n' shit.
+        We have provided a mechanism for funding, 
+        with a strong finanical plan to
+        financially viable before 
+        the complete switch to digital currency...
+        
       </p>
     </div>
   </div>
 </section>
 
-    document.addEventListener("DOMContentLoaded", () => {
-  const words = ["artists", "buyers", "curators", "purveyors", "investors", "critics", "haters", "lovers"];
-  let currentIndex = 0;
 
-  const reel = document.getElementById("slotReel");
-
-  // Safety check to ensure element exists
-  if (!reel) return;
-
-  // Inject all words into the reel DOM on load
-  reel.innerHTML = words.map(word => `<span class="slot-word">${word}</span>`).join('');
-
-  function spinSlot() {
-    currentIndex = (currentIndex + 1) % words.length;
-    
-    // Quick blur effect during turn
-    reel.style.filter = "blur(2px)";
-    reel.style.transform = `translateY(-${currentIndex * 2.6}rem)`;
-    
-    setTimeout(() => {
-      reel.style.filter = "blur(0px)";
-    }, 250);
-  }
-
-  // Spin every 2 seconds
-  setInterval(spinSlot, 2000);
-});
-
-    .slot-container {
-  display: inline-block;
-  height: 2.6rem; /* Must match translateY multiplier in JS */
-  overflow: hidden;
-  vertical-align: bottom;
-}
-
-.slot-reel {
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.4s ease-in-out, filter 0.25s ease;
-}
-
-.slot-word {
-  height: 2.6rem;
-  line-height: 2.6rem;
-  display: block;
-}
-      
       <section id="notes" class="notes">
         <div class="section-head">
           <div>
