@@ -187,56 +187,71 @@
       </nav>
     </header>
     
-    <main>
-      <section class="hero">
-        <img class="hero-img" loading="lazy" src="https://images.pexels.com/photos/18499406/pexels-photo-18499406.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1280" alt="Stacked vintage televisions">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-          <div class="eyebrow">Somewhere between signal and shelter</div>
-          <h1> A House for the Creator in You </h1>
-          <p> A place where the work ascends and transcends. </p>
-          <div class="hero-actions">
-            <a href="#speakeasy" class="btn dark">Find the door</a> 
-            <a href="#manifesto" class="btn">Read the signal</a>
-          </div>
-        </div>
-        <div class="scroll-note">Scroll to enter</div>
-      </section>
-      
-      <section id="manifesto" class="manifesto">
-        <div class="manifesto-grid">
-          <div>
-            <div class="manifesto-kicker">House Rule 001</div>
-            <h2 class="manifesto-title">A place where no artist is left behind.</h2>
-          </div>
-          <div class="manifesto-copy">
-            <p> Bayit Bora exists to make room for artists art and intellect to gain more visibility, funding, and be financially viable before the complete switch to digital currency, unfinished work, unlikely meetings, and the kind of cultural exchange that rarely survives under bright light. We exist to: Never Exploit Artists, Optimize Buyer Benefits, and Internally Fund our projects with several art utilization models fit for the Web3. </p>
+<section id="manifesto" class="manifesto">
+  <div class="manifesto-grid">
+    <div>
+      <div class="manifesto-kicker">House Rule 001</div>
+      <h2 class="manifesto-title">A place where no artist is left behind.</h2>
+    </div>
+    <div class="manifesto-copy">
+      <p>
+        Bayit Bora exists to make room for 
+        <!-- Slot Reel Container -->
+        <span class="slot-container">
+          <span id="slotReel" class="slot-reel"></span>
+        </span>
+        art and intellect to gain more visibility, funding, and be financially viable before the complete switch to digital currency...
+      </p>
+    </div>
+  </div>
+</section>
 
-            const words = ["artists", "buyers", "curators", "purveyors", "investors", "critics", "haters", "lovers"];
-let currentIndex = 0;
+    document.addEventListener("DOMContentLoaded", () => {
+  const words = ["artists", "buyers", "curators", "purveyors", "investors", "critics", "haters", "lovers"];
+  let currentIndex = 0;
 
-const reel = document.getElementById("slotReel");
+  const reel = document.getElementById("slotReel");
 
-function spinSlot() {
-  currentIndex = (currentIndex + 1) % words.length;
-  
-  // Quick blur effect during turn
-  reel.style.filter = "blur(2px)";
-  reel.style.transform = `translateY(-${currentIndex * 2.6}rem)`;
-  
-  setTimeout(() => {
-    reel.style.filter = "blur(0px)";
-  }, 250);
+  // Safety check to ensure element exists
+  if (!reel) return;
+
+  // Inject all words into the reel DOM on load
+  reel.innerHTML = words.map(word => `<span class="slot-word">${word}</span>`).join('');
+
+  function spinSlot() {
+    currentIndex = (currentIndex + 1) % words.length;
+    
+    // Quick blur effect during turn
+    reel.style.filter = "blur(2px)";
+    reel.style.transform = `translateY(-${currentIndex * 2.6}rem)`;
+    
+    setTimeout(() => {
+      reel.style.filter = "blur(0px)";
+    }, 250);
+  }
+
+  // Spin every 2 seconds
+  setInterval(spinSlot, 2000);
+});
+
+    .slot-container {
+  display: inline-block;
+  height: 2.6rem; /* Must match translateY multiplier in JS */
+  overflow: hidden;
+  vertical-align: bottom;
 }
 
-// Inject all words into the reel DOM on load
-reel.innerHTML = words.map(word => `<span class="slot-word">${word}</span>`).join('');
+.slot-reel {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s ease-in-out, filter 0.25s ease;
+}
 
-// Spin every 2 seconds
-setInterval(spinSlot, 2000);
-          </div>
-        </div>
-      </section>
+.slot-word {
+  height: 2.6rem;
+  line-height: 2.6rem;
+  display: block;
+}
       
       <section id="notes" class="notes">
         <div class="section-head">
