@@ -100,16 +100,6 @@
     .mission-copy p { font-size: 17px; line-height: 1.8; color: #4b463f; max-width: 620px; margin: 0 auto; }
     .quote-line { margin-top: 34px; padding-top: 24px; border-top: 1px solid rgba(17,17,16,.16); font-family: 'Fraunces', serif; font-size: 24px; line-height: 1.2; color: #171716; }
 
-    .notes { background: #111110; padding: 120px 6vw; }
-    .notes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 44px; }
-    .note-card { border: 1px solid var(--line); background: #171716; color: inherit; text-align: left; padding: 0; cursor: pointer; transition: .28s ease; }
-    .note-card:hover { transform: translateY(-8px); border-color: rgba(199,154,104,.65); }
-    .note-img { width: 100%; height: 330px; object-fit: cover; display: block; filter: brightness(.76); }
-    .note-meta { padding: 22px; }
-    .note-kicker { font-family: 'Space Mono', monospace; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); font-size: 9px; margin-bottom: 14px; }
-    .note-title { font-family: 'Fraunces', serif; font-size: 28px; line-height: 1.05; letter-spacing: -.03em; margin: 0 0 12px; }
-    .note-copy { font-size: 13px; line-height: 1.65; color: #afa597; margin: 0; }
-
     .shop { background: #171716; padding: 120px 6vw; }
     .shop-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 38px; }
     .shop-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
@@ -120,6 +110,16 @@
     .product-title { font-family: 'Fraunces', serif; font-size: 22px; line-height: 1.1; margin: 0; }
     .product-price { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--gold); }
 
+    .notes { background: #111110; padding: 120px 6vw; }
+    .notes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 44px; }
+    .note-card { border: 1px solid var(--line); background: #171716; color: inherit; text-align: left; padding: 0; cursor: pointer; transition: .28s ease; }
+    .note-card:hover { transform: translateY(-8px); border-color: rgba(199,154,104,.65); }
+    .note-img { width: 100%; height: 330px; object-fit: cover; display: block; filter: brightness(.76); }
+    .note-meta { padding: 22px; }
+    .note-kicker { font-family: 'Space Mono', monospace; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); font-size: 9px; margin-bottom: 14px; }
+    .note-title { font-family: 'Fraunces', serif; font-size: 28px; line-height: 1.05; letter-spacing: -.03em; margin: 0 0 12px; }
+    .note-copy { font-size: 13px; line-height: 1.65; color: #afa597; margin: 0; }
+
     .press { background: #0d0d0d; padding: 120px 6vw 90px; }
     .press-grid { display: grid; grid-template-columns: .95fr 1.05fr; gap: 8vw; }
     .press-title { font-size: clamp(44px, 6vw, 80px); line-height: .95; }
@@ -128,9 +128,13 @@
     .press-item:first-child { border-top: 0; padding-top: 0; }
     .press-quote { font-size: 16px; line-height: 1.65; color: #c6bcae; margin: 0 0 14px; }
     .press-source { font-family: 'Fraunces', serif; font-size: 22px; color: var(--cream); }
+    .press-source a { color: var(--cream); text-decoration: none; transition: color .25s ease; }
+    .press-source a:hover { color: var(--gold); }
 
     footer { padding: 26px 6vw; border-top: 1px solid rgba(244,240,231,.16); display: flex; justify-content: space-between; gap: 20px; background: #0d0d0d; }
     .footer-left, .footer-right { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: #9f9587; }
+    .footer-right a { color: #9f9587; text-decoration: none; transition: color .25s ease; }
+    .footer-right a:hover { color: var(--gold); }
 
     .modal {
       position: fixed; inset: 0; background: rgba(9,9,9,.82); backdrop-filter: blur(12px); z-index: 80;
@@ -179,8 +183,8 @@
       <nav class="nav-links" aria-label="Primary navigation">
         <a href="#manifesto">Manifesto</a> 
         <a href="#speakeasy">The Atelier</a> 
-        <a href="#notes">Notes</a> 
         <a href="#shop">First Mint</a>
+        <a href="#notes">Notes</a> 
         <button id="walletConnectBtn" class="btn" style="padding: 6px 12px; margin-left: 14px; font-size: 9px; border-color: var(--gold); color: var(--gold);">
           <span id="walletAddressText">Connect Signal</span>
         </button>
@@ -229,52 +233,6 @@
   </div>
 </section>
 
-
-      <section id="notes" class="notes">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow">Filed after midnight</div>
-            <h2 class="section-title">House notes from the edge.</h2>
-          </div>
-          <p class="section-note">Fragments, dispatches, and field recordings from inside the house and just outside the frame.</p>
-        </div>
-        <div class="notes-grid">
-          <button class="note-card" data-note="one" type="button">
-            <img class="note-img" loading="lazy" src="https://images.pexels.com/photos/18499406/pexels-photo-18499406.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Retro television set">
-            <div class="note-meta">
-              <div class="note-kicker">Transmission 01</div>
-              <h3 class="note-title">Whats the point? </h3>
-              <p class="note-copy"> While society has completely surrendered to the machinery of modern marketing, Bayit Bora uses this platform to dismantle systemic inequities—present and future.
-
-It starts with the wealth gap, which forces rich, diverse creativity into narrow stereotypes. Most artists die just trying to survive—fuck getting rich. But as we enter a new era of currency, BB is [...]
-
-At the same time, history is being erased, and cultures are being exploited even as they are marginalized. Bayit Bora is built as a living digital archive bound to art—a permanent home for the work [...]
-
-We don't just host your voice; we monetize it. Every minted artist receives a major percentage of sales, while the remainder feeds a DAO community fund distributed by contribution and priority.
-
-Our proprietary smart contracts are currently in development. Follow our drops on TikTok and X to catch the formula first. </p>
-            </div>
-          </button> 
-          <button class="note-card" data-note="two" type="button">
-            <img class="note-img" loading="lazy" src="https://images.pexels.com/photos/6551894/pexels-photo-6551894.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Artistic collage panel">
-            <div class="note-meta">
-              <div class="note-kicker">Field Note 02</div>
-              <h3 class="note-title">Cut / Copy / Gather</h3>
-              <p class="note-copy">A small essay on cities, scenes, and the practice of making room.</p>
-            </div>
-          </button> 
-          <button class="note-card" data-note="three" type="button">
-            <img class="note-img" loading="lazy" src="https://images.pexels.com/photos/8108327/pexels-photo-8108327.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Portrait with neon lights">
-            <div class="note-meta">
-              <div class="note-kicker">Afterimage 03</div>
-              <h3 class="note-title">Nobody Goes Home Early</h3>
-              <p class="note-copy">Portraits of the hour after the event is supposed to be over.</p>
-            </div>
-          </button>
-        </div>
-      </section>
-      
-           
       <!-- IN THE MARKET (STRICTLY YOUR 2 SCANNED PIECES) -->
       <section id="shop" class="shop">
         <div class="shop-head">
@@ -330,6 +288,50 @@ Our proprietary smart contracts are currently in development. Follow our drops o
           </button>
         </div>
       </section>
+
+      <section id="notes" class="notes">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Filed after midnight</div>
+            <h2 class="section-title">House notes from the edge.</h2>
+          </div>
+          <p class="section-note">Fragments, dispatches, and field recordings from inside the house and just outside the frame.</p>
+        </div>
+        <div class="notes-grid">
+          <button class="note-card" data-note="one" type="button">
+            <img class="note-img" loading="lazy" src="https://images.pexels.com/photos/18499406/pexels-photo-18499406.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Retro television set">
+            <div class="note-meta">
+              <div class="note-kicker">Transmission 01</div>
+              <h3 class="note-title">Whats the point? </h3>
+              <p class="note-copy"> While society has completely surrendered to the machinery of modern marketing, Bayit Bora uses this platform to dismantle systemic inequities—present and future.
+
+It starts with the wealth gap, which forces rich, diverse creativity into narrow stereotypes. Most artists die just trying to survive—fuck getting rich. But as we enter a new era of currency, BB is [...]
+
+At the same time, history is being erased, and cultures are being exploited even as they are marginalized. Bayit Bora is built as a living digital archive bound to art—a permanent home for the work [...]
+
+We don't just host your voice; we monetize it. Every minted artist receives a major percentage of sales, while the remainder feeds a DAO community fund distributed by contribution and priority.
+
+Our proprietary smart contracts are currently in development. Follow our drops on TikTok and X to catch the formula first. </p>
+            </div>
+          </button> 
+          <button class="note-card" data-note="two" type="button">
+            <img class="note-img" loading="lazy" src="https://images.pexels.com/photos/6551894/pexels-photo-6551894.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Artistic collage panel">
+            <div class="note-meta">
+              <div class="note-kicker">Field Note 02</div>
+              <h3 class="note-title">Cut / Copy / Gather</h3>
+              <p class="note-copy">A small essay on cities, scenes, and the practice of making room.</p>
+            </div>
+          </button> 
+          <button class="note-card" data-note="three" type="button">
+            <img class="note-img" loading="lazy" src="https://images.pexels.com/photos/8108327/pexels-photo-8108327.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Portrait with neon lights">
+            <div class="note-meta">
+              <div class="note-kicker">Afterimage 03</div>
+              <h3 class="note-title">Nobody Goes Home Early</h3>
+              <p class="note-copy">Portraits of the hour after the event is supposed to be over.</p>
+            </div>
+          </button>
+        </div>
+      </section>
       
       <section class="press">
         <div class="press-grid">
@@ -337,15 +339,15 @@ Our proprietary smart contracts are currently in development. Follow our drops o
           <div class="press-list">
             <div class="press-item">
               <p class="press-quote">"A hidden room with the confidence to stay hidden."</p>
-              <div class="press-source"> Zora.co </div>
+              <div class="press-source"><a href="https://zora.co/bayitbora" target="_blank">Zora</a></div>
             </div>
             <div class="press-item">
               <p class="press-quote">"Equal parts lounge, salon, and cultural weather system."</p>
-              <div class="press-source"> Discord </div>
+              <div class="press-source">Founders TikTok</div>
             </div>
             <div class="press-item">
               <p class="press-quote">"The rare private space that still feels open to possibility."</p>
-              <div class="press-source"> X </div>
+              <div class="press-source"><a href="https://x.com/BayitBora" target="_blank">X</a></div>
             </div>
           </div>
         </div>
@@ -354,7 +356,7 @@ Our proprietary smart contracts are currently in development. Follow our drops o
     
     <footer>
       <div class="footer-left">Bayit Bora / New York / After Hours</div>
-      <div class="footer-right">House signal open</div>
+      <div class="footer-right">House signal open / <a href="https://x.com/BayitBora" target="_blank">X</a></div>
     </footer>
   </div>
 
